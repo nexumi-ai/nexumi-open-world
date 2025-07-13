@@ -8,7 +8,7 @@ signal data_saved(collection: String, document_id: String)
 signal data_loaded(collection: String, data: Dictionary)
 
 # MongoDB connection settings
-@export var database_url: String = "mongodb://localhost:27017"
+@export var database_url: String = "mongodb://admin:nexumi123@localhost:27017"
 @export var database_name: String = "nexumi_game"
 @export var use_local_fallback: bool = true
 
