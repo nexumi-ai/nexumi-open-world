@@ -123,7 +123,7 @@ func _queue_chunk_generation(chunk_pos: Vector2i):
 
 func _generate_chunk(chunk_pos: Vector2i):
 	var chunk = WorldChunk.new()
-	chunk.position = chunk_pos
+	chunk.chunk_position = chunk_pos
 	chunk.size = chunk_size
 	
 	# Generate terrain
@@ -154,7 +154,7 @@ func _generate_chunk(chunk_pos: Vector2i):
 	chunk_loaded.emit(chunk)
 
 func _generate_terrain(chunk: WorldChunk):
-	var world_pos = chunk_to_world(chunk.position)
+	var world_pos = chunk_to_world(chunk.chunk_position)
 	
 	for x in range(chunk_size):
 		for y in range(chunk_size):
@@ -182,7 +182,7 @@ func _get_block_for_height(height: float) -> String:
 		return "snow"
 
 func _generate_biome(chunk: WorldChunk):
-	var world_pos = chunk_to_world(chunk.position)
+	var world_pos = chunk_to_world(chunk.chunk_position)
 	
 	# Use temperature and humidity to determine biome
 	var temperature = noise_generator.get_noise_2d(world_pos.x * 0.001, world_pos.y * 0.001)

@@ -2,7 +2,7 @@ extends Node2D
 
 class_name WorldChunk
 
-@export var position: Vector2i
+@export var chunk_position: Vector2i
 @export var size: int = 64
 @export var biome: WorldGenerator.BiomeType
 

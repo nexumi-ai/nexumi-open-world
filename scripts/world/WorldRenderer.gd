@@ -25,16 +25,16 @@ func _on_chunk_unloaded(chunk: WorldChunk):
 	_unrender_chunk(chunk)
 
 func _render_chunk(chunk: WorldChunk):
-	if rendered_chunks.has(chunk.position):
+	if rendered_chunks.has(chunk.chunk_position):
 		return  # Already rendered
 	
 	var chunk_node = Node2D.new()
-	chunk_node.name = "Chunk_%d_%d" % [chunk.position.x, chunk.position.y]
+	chunk_node.name = "Chunk_%d_%d" % [chunk.chunk_position.x, chunk.chunk_position.y]
 	
 	# Calculate world position
 	var world_pos = Vector2(
-		chunk.position.x * chunk.size * tile_size,
-		chunk.position.y * chunk.size * tile_size
+		chunk.chunk_position.x * chunk.size * tile_size,
+		chunk.chunk_position.y * chunk.size * tile_size
 	)
 	chunk_node.position = world_pos
 	
@@ -54,7 +54,7 @@ func _render_chunk(chunk: WorldChunk):
 	_render_chunk_structures(chunk, chunk_node)
 	
 	add_child(chunk_node)
-	rendered_chunks[chunk.position] = chunk_node
+	rendered_chunks[chunk.chunk_position] = chunk_node
 
 func _render_chunk_blocks(chunk: WorldChunk, chunk_node: Node2D):
 	for x in range(chunk.size):
@@ -183,10 +183,10 @@ func _create_colored_texture(color: Color, size: Vector2i) -> ImageTexture:
 	return texture
 
 func _unrender_chunk(chunk: WorldChunk):
-	if rendered_chunks.has(chunk.position):
-		var chunk_node = rendered_chunks[chunk.position]
+	if rendered_chunks.has(chunk.chunk_position):
+		var chunk_node = rendered_chunks[chunk.chunk_position]
 		chunk_node.queue_free()
-		rendered_chunks.erase(chunk.position)
+		rendered_chunks.erase(chunk.chunk_position)
 
 func get_rendered_chunk_count() -> int:
 	return rendered_chunks.size()
