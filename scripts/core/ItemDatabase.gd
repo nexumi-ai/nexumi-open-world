@@ -1,8 +1,9 @@
 extends Node
 
-class_name ItemDatabase
+# ItemDatabase autoload singleton - manages all game items
+# Access globally as ItemDatabase.function_name()
 
-static var instance: ItemDatabase
+static var instance
 var items: Dictionary = {}
 
 func _ready():

@@ -1,6 +1,7 @@
 extends Node
 
-class_name DatabaseManager
+# DatabaseManager autoload singleton - handles MongoDB connectivity
+# Access globally as DatabaseManager.function_name()
 
 signal connection_established()
 signal connection_failed()

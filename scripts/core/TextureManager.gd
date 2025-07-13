@@ -1,8 +1,9 @@
 extends Node
 
-class_name TextureManager
+# TextureManager autoload singleton - manages all game textures
+# Access globally as TextureManager.function_name()
 
-static var instance: TextureManager
+static var instance
 var textures: Dictionary = {}
 var sprite_frames: Dictionary = {}
 

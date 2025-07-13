@@ -1,6 +1,7 @@
 extends Node
 
-class_name GameManager
+# GameManager autoload singleton - manages core game state
+# Access globally as GameManager.function_name()
 
 signal game_state_changed(new_state: GameState)
 signal player_spawned(player: Player)
