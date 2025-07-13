@@ -55,11 +55,11 @@ enum Rarity {
 @export var health_restore: int = 0
 @export var hunger_restore: int = 0
 @export var thirst_restore: int = 0
-@export var effects: Array[String] = []
+@export var effects: Array = []
 
 # Crafting
 @export var craftable: bool = false
-@export var recipe_ingredients: Array[Dictionary] = []
+@export var recipe_ingredients: Array = []
 @export var crafting_time: float = 1.0
 @export var crafting_station: String = ""
 
