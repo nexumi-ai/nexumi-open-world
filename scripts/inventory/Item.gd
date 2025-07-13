@@ -189,7 +189,7 @@ func damage_tool(amount: int):
 		return durability <= 0
 	return false
 
-func duplicate() -> Item:
+func create_copy() -> Item:
 	var new_item = Item.new()
 	new_item.id = id
 	new_item.name = name

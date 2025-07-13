@@ -134,7 +134,7 @@ func _set_block_properties(item: Item, id: String):
 
 static func get_item(id: String) -> Item:
 	if instance and instance.items.has(id):
-		return instance.items[id].duplicate()
+		return instance.items[id].create_copy()
 	return null
 
 static func get_all_items() -> Dictionary:
