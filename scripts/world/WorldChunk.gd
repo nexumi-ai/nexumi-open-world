@@ -51,7 +51,7 @@ func add_tree(pos: Vector2i, tree_type: String):
 	if _is_valid_position(pos.x, pos.y):
 		trees[pos] = tree_type
 
-func get_tree(pos: Vector2i) -> String:
+func get_tree_at(pos: Vector2i) -> String:
 	return trees.get(pos, "")
 
 func remove_tree(pos: Vector2i):
