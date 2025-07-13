@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://bijqhc5wjjmj8"]
+
+[ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_2xj3k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jmqb"]
+size = Vector2(24, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1htqc"]
+radius = 50.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1bqrj"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": "idle_down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": "idle_left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": "idle_right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": "idle_up",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_down",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_left",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_right",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_up",
+"speed": 8.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_2xj3k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1jmqb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1bqrj")
+animation = &"idle_down"
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_1htqc")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 0
+anchor_left = -0.5
+anchor_top = -1.0
+anchor_right = 0.5
+anchor_bottom = -0.8
+offset_left = -25.0
+offset_top = -45.0
+offset_right = 25.0
+offset_bottom = -35.0
+value = 100.0
+show_percentage = false 
