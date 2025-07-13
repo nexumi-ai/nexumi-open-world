@@ -27,6 +27,7 @@ func _ready():
 	current_health = max_health
 	_connect_signals()
 	_setup_interaction_area()
+	_setup_sprite()
 
 func _connect_signals():
 	health_changed.connect(_on_health_changed)
@@ -37,6 +38,15 @@ func _setup_interaction_area():
 		var interaction_shape = CircleShape2D.new()
 		interaction_shape.radius = interaction_range
 		interaction_area.get_child(0).shape = interaction_shape
+
+func _setup_sprite():
+	if sprite:
+		# Get sprite frames from TextureManager
+		var player_frames = TextureManager.get_sprite_frames("player")
+		if player_frames:
+			sprite.sprite_frames = player_frames
+			sprite.animation = "idle_down"
+			sprite.play()
 
 func _input(event):
 	# Handle input for different game modes

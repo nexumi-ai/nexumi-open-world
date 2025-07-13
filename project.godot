@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 ItemDatabase="*res://scripts/core/ItemDatabase.gd"
+TextureManager="*res://scripts/core/TextureManager.gd"
+DatabaseManager="*res://scripts/core/DatabaseManager.gd"
 GameManager="*res://scripts/core/GameManager.gd"
 
 [input]

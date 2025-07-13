@@ -60,6 +60,7 @@ shape = SubResource("RectangleShape2D_1jmqb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1bqrj")
 animation = &"idle_down"
+texture_filter = 1
 
 [node name="InteractionArea" type="Area2D" parent="."]
 

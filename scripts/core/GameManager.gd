@@ -25,8 +25,10 @@ var crafting_manager: CraftingManager
 var building_manager: BuildingManager
 var multiplayer_manager: MultiplayerManager
 var economy_manager: EconomyManager
+var database_manager: DatabaseManager
 
 var game_data: Dictionary = {}
+var current_player_id: String = "default"
 
 func _ready():
 	# Initialize all managers
@@ -41,6 +43,9 @@ func _ready():
 	print("Nexumi Game Manager initialized!")
 
 func _initialize_managers():
+	# Get database manager
+	database_manager = DatabaseManager
+	
 	# Create manager instances
 	world_generator = WorldGenerator.new()
 	inventory_manager = InventoryManager.new()
@@ -56,6 +61,10 @@ func _initialize_managers():
 	add_child(building_manager)
 	add_child(multiplayer_manager)
 	add_child(economy_manager)
+	
+	# Connect database signals
+	database_manager.connection_established.connect(_on_database_connected)
+	database_manager.data_loaded.connect(_on_data_loaded)
 
 func _connect_signals():
 	# Connect manager signals here
@@ -134,12 +143,69 @@ func spawn_player(spawn_position: Vector2):
 	player_spawned.emit(player)
 
 func save_game():
-	# Save game state
+	# Save game state to database
+	if player and database_manager:
+		var player_data = {
+			"player_id": current_player_id,
+			"username": "Player1",  # Would get from UI
+			"level": 1,
+			"experience": 0,
+			"health": player.current_health,
+			"max_health": player.max_health,
+			"position": {"x": player.global_position.x, "y": player.global_position.y},
+			"inventory": inventory_manager.save_inventory_data() if inventory_manager else {},
+			"equipped_items": {},
+			"skills": {},
+			"achievements": [],
+			"currency": economy_manager.get_currency() if economy_manager else 0,
+			"last_login": Time.get_datetime_string_from_system()
+		}
+		
+		database_manager.save_player_data(current_player_id, player_data)
 	print("Game saved!")
 
 func load_game():
-	# Load game state
+	# Load game state from database
+	if database_manager:
+		var player_data = database_manager.load_player_data(current_player_id)
+		if player_data.has("position"):
+			# Load will be handled by _on_data_loaded signal
+			pass
 	print("Game loaded!")
 
+func _on_database_connected():
+	print("Database connected successfully!")
+	# Load initial game data
+	load_game()
+
+func _on_data_loaded(collection: String, data: Dictionary):
+	match collection:
+		"players":
+			_load_player_data(data)
+		"worlds":
+			_load_world_data(data)
+
+func _load_player_data(data: Dictionary):
+	if player and data.has("health"):
+		player.current_health = data.get("health", 100)
+		var pos = data.get("position", {"x": 0, "y": 0})
+		player.global_position = Vector2(pos.x, pos.y)
+		
+		if inventory_manager and data.has("inventory"):
+			inventory_manager.load_inventory_data(data["inventory"])
+		
+		if economy_manager and data.has("currency"):
+			economy_manager.add_currency(data["currency"] - economy_manager.get_currency())
+
+func _load_world_data(data: Dictionary):
+	# Load world chunk data
+	pass
+
+func auto_save():
+	# Auto-save every 5 minutes
+	save_game()
+
 func quit_game():
+	# Save before quitting
+	save_game()
 	get_tree().quit() 

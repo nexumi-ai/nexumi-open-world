@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpjbpxkwuywxl"]
+[gd_scene load_steps=4 format=3 uid="uid://dpjbpxkwuywxl"]
 
 [ext_resource type="Script" path="res://scripts/main/Main.gd" id="1_8xkww"]
+[ext_resource type="Script" path="res://scripts/world/WorldRenderer.gd" id="2_x9kbm"]
 
 [sub_resource type="Environment" id="Environment_1qtb4"]
 background_mode = 1
@@ -17,6 +18,9 @@ enabled = true
 zoom = Vector2(2, 2)
 
 [node name="World" type="Node2D" parent="."]
+
+[node name="WorldRenderer" type="Node2D" parent="World"]
+script = ExtResource("2_x9kbm")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
